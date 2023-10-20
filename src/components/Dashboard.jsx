@@ -6,7 +6,7 @@ import "../App.css";
 
 
 function Dashboard() {
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
   //current city data.
   const [weatherData, setWeatherData] = useState({
@@ -30,15 +30,15 @@ function Dashboard() {
     if (!res.ok) {
       throw new Error("Something went wrong");
     }
-    console.log(res.status);
+ 
     const data = await res.json();
 
-    // console.log(data);
     setWeatherData({
       cityName: data.timezone,
       cityDescription: data.current.weather[0].description,
       cityTemp: data.current.temp,
     });
+
     const dailyWeather = [];
     for (const key in data.daily) {
       dailyWeather.push({
@@ -48,7 +48,6 @@ function Dashboard() {
       });
     }
     setDailyWeatherData(dailyWeather);
-    console.log(dailyWeatherData);
   };
 
   useEffect(() => {
@@ -59,7 +58,7 @@ function Dashboard() {
 
   const dailyReport = dailyWeatherData.map((day, index) => {
     return (
-      <div key={index}>
+      <div key={index} className="dailyweather-item">
         <h3>Day {index + 1}</h3>
         <h4>{day.temp}</h4>
         <h4>{day.description}</h4>
@@ -103,7 +102,7 @@ function Dashboard() {
       <div className="container">
         <div className="header">
           <div className="location">
-            <p>Results for: {weatherData.cityName}</p>
+            <p>Showing results for: {weatherData.cityName}</p>
           </div>
           <div className="temp">
             {weatherData.cityTemp ? (
@@ -115,10 +114,12 @@ function Dashboard() {
               <h1>{weatherData.cityDescription}</h1>
             ) : null}
             <div className="" style={{ paddingBottom: "3rem" }}>
-              <div className="">
-                <h3>Daily Report:</h3>
+              <div style={{textAlign:'center'}}>
+                <h2>Daily Report for next week</h2>
               </div>
-              <div>{dailyReport}</div>
+              <div className="dailyweather-container">
+                {dailyReport}
+              </div>
             </div>
           </div>
         </div>
