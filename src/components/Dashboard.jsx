@@ -4,7 +4,6 @@ import { auth, logout } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import "../App.css";
 
-const API_KEY = "d010525dca802e0980e828ee1cb30edb";
 
 function Dashboard() {
   const [user, loading, error] = useAuthState(auth);
@@ -24,14 +23,14 @@ function Dashboard() {
   const [longitude, setLongitude] = useState("79.8478");
 
   const getWeatherDataByLatLong = async () => {
-    let url = `https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&units=metric&exclude=minutely,hourly,&appid=${API_KEY}`;
+    let url = `https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&units=metric&exclude=minutely,hourly,&appid=${process.env.REACT_APP_WEATHER_API_KEY}`;
 
     const res = await fetch(url);
 
     if (!res.ok) {
       throw new Error("Something went wrong");
     }
-    // console.log(res.status);
+    console.log(res.status);
     const data = await res.json();
 
     // console.log(data);
