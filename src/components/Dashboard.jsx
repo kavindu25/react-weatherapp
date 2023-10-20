@@ -6,7 +6,7 @@ import "../App.css";
 
 
 function Dashboard() {
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
   //current city data.
   const [weatherData, setWeatherData] = useState({
@@ -30,15 +30,15 @@ function Dashboard() {
     if (!res.ok) {
       throw new Error("Something went wrong");
     }
-    console.log(res.status);
+ 
     const data = await res.json();
 
-    // console.log(data);
     setWeatherData({
       cityName: data.timezone,
       cityDescription: data.current.weather[0].description,
       cityTemp: data.current.temp,
     });
+
     const dailyWeather = [];
     for (const key in data.daily) {
       dailyWeather.push({
@@ -48,7 +48,6 @@ function Dashboard() {
       });
     }
     setDailyWeatherData(dailyWeather);
-    console.log(dailyWeatherData);
   };
 
   useEffect(() => {

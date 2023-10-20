@@ -135,7 +135,7 @@ h1 {
 }
 .dailyweather-item {
   padding: 9px;
-  /* flex: 10%; */
+  flex: 10%;
 }
 
 @media (max-width: 860px) {
