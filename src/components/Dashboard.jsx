@@ -59,7 +59,7 @@ function Dashboard() {
 
   const dailyReport = dailyWeatherData.map((day, index) => {
     return (
-      <div key={index}>
+      <div key={index} className="dailyweather-item">
         <h3>Day {index + 1}</h3>
         <h4>{day.temp}</h4>
         <h4>{day.description}</h4>
@@ -103,7 +103,7 @@ function Dashboard() {
       <div className="container">
         <div className="header">
           <div className="location">
-            <p>Results for: {weatherData.cityName}</p>
+            <p>Showing results for: {weatherData.cityName}</p>
           </div>
           <div className="temp">
             {weatherData.cityTemp ? (
@@ -115,10 +115,12 @@ function Dashboard() {
               <h1>{weatherData.cityDescription}</h1>
             ) : null}
             <div className="" style={{ paddingBottom: "3rem" }}>
-              <div className="">
-                <h3>Daily Report:</h3>
+              <div style={{textAlign:'center'}}>
+                <h2>Daily Report for next week</h2>
               </div>
-              <div>{dailyReport}</div>
+              <div className="dailyweather-container">
+                {dailyReport}
+              </div>
             </div>
           </div>
         </div>
